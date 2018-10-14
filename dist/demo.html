@@ -1,0 +1,17 @@
+<meta charset="utf-8">
+<title>vue-pseudo-window demo</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="./vue-pseudo-window.umd.js"></script>
+<link rel="stylesheet" href="./vue-pseudo-window.css">
+
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+new Vue({
+  components: {
+    demo: vue-pseudo-window
+  }
+}).$mount('#app')
+</script>
