@@ -1,0 +1,26 @@
+{
+  "name": "vue-pseudo-window",
+  "version": "0.1.0",
+  "main": "dist/vue-pseudo-window.common.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve src/PseudoWindow.vue",
+    "build": "vue-cli-service build src/PseudoWindow.vue --target lib",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-eslint": "^3.0.5",
+    "@vue/cli-plugin-unit-jest": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "@vue/eslint-config-prettier": "^3.0.5",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.0.1",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
