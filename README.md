@@ -4,8 +4,38 @@ Adding event-handlers on the `window`/`document` can get messy as you have to im
 
 PseudoWindow is a component that abstracts away event management on the window/document through the Vue API. No more imperative event handling!
 
+Supports event modifiers `capture`, `passive`, and `once`.
 
-### Listenint to `window` events
+### Imperative event listening
+Without the PseudoWindow, you may write:
+```vue
+<template>
+	<div>
+		Handle window resize
+	</div>
+</template>
+
+<script>
+export default {
+	methods: {
+		onResize() {
+			console.log('Resized!')
+		}
+	},
+
+	mounted() {
+		window.addEventListener('resize', this.onResize);
+	},
+
+	destroyed() {
+		window.removeEventListener('resize', this.onResize);
+	}
+}
+</script>
+```
+
+
+### Listening to `window` events
 ```vue
 <template>
 	<div>
