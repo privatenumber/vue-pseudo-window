@@ -1085,7 +1085,8 @@ var web_dom_iterable = __webpack_require__("ac6a");
     document: Boolean
   },
   render: function render() {
-    return this.$slots.default;
+    var defSlot = this.$slots.default;
+    return defSlot && defSlot.length === 1 ? defSlot[0] : defSlot;
   },
   data: function data() {
     return {
