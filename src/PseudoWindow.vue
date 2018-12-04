@@ -7,7 +7,8 @@ export default {
   },
 
   render() {
-    return this.$slots.default;
+    const { default: defSlot } = this.$slots;
+    return defSlot && defSlot.length === 1 ? defSlot[0] : defSlot;
   },
 
   data() {
