@@ -1,6 +1,6 @@
 {
   "name": "vue-pseudo-window",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/vue-pseudo-window.common.js",
   "license": "MIT",
   "scripts": {
