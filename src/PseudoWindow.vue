@@ -6,60 +6,62 @@ export default {
     document: Boolean
   },
 
-  render() {
-    const { default: defSlot } = this.$slots;
+  render: function() {
+    var defSlot = this.$slots.default;
     return defSlot && defSlot.length === 1 ? defSlot[0] : defSlot;
   },
 
-  data() {
-    return {
-      handlers: []
-    };
+  data: function() {
+    return { handlers: [] };
   },
 
-  mounted() {
+  mounted: function() {
     this.bindEventListeners();
   },
-
-  destroyed() {
+  destroyed: function() {
     this.unbindEventListeners();
   },
 
   methods: {
-    bindEventListeners() {
-      Object.keys(this.$listeners).forEach(event => {
+    bindEventListeners: function() {
+      var $listeners = this.$listeners;
+      for (var event in $listeners) {
+        if (!$listeners.hasOwnProperty(event)) {
+          continue;
+        }
         const e = this.normalizeEvent(
           this.document ? window.document : window,
           event,
-          this.$listeners[event]
+          $listeners[event]
         );
         e.target.addEventListener(e.name, e.handler, e.opts);
         this.handlers.push(e);
-      });
+      }
     },
 
-    unbindEventListeners() {
+    unbindEventListeners: function() {
       while (this.handlers.length) {
-        const e = this.handlers.shift();
+        var e = this.handlers.shift();
         e.target.removeEventListener(e.name, e.handler, e.opts);
       }
     },
 
-    normalizeEvent(target, name, handler) {
-      const passive = name.charAt(0) === "&";
+    normalizeEvent: function(target, name, handler) {
+      var passive = name.charAt(0) === "&";
       name = passive ? name.slice(1) : name;
-      const once = name.charAt(0) === "~"; // Prefixed last, checked first
+      var once = name.charAt(0) === "~"; // Prefixed last, checked first
+
       name = once ? name.slice(1) : name;
-      const capture = name.charAt(0) === "!";
+      var capture = name.charAt(0) === "!";
       name = capture ? name.slice(1) : name;
       return {
-        target,
-        name,
-        handler,
+        target: target,
+        name: name,
+        handler: handler,
         opts: {
-          once,
-          capture,
-          passive
+          once: once,
+          capture: capture,
+          passive: passive
         }
       };
     }
