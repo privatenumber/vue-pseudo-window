@@ -3,6 +3,14 @@
   "version": "0.1.2",
   "main": "dist/vue-pseudo-window.common.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hirokiosame/vue-pseudo-window.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hirokiosame/vue-pseudo-window/issues"
+  },
+  "homepage": "https://github.com/hirokiosame/vue-pseudo-window#readme",
   "scripts": {
     "serve": "vue-cli-service serve src/PseudoWindow.vue",
     "build": "vue-cli-service build src/PseudoWindow.vue --target lib",
