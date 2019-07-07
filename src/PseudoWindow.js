@@ -2,7 +2,7 @@ export default {
 	name: 'pseudo-window',
 
 	props: {
-		document: Boolean
+		document: Boolean,
 	},
 
 	render() {
@@ -23,15 +23,15 @@ export default {
 
 	methods: {
 		bindEventListeners() {
-			var $listeners = this.$listeners;
-			for (var event in $listeners) {
+			const { $listeners } = this;
+			for (const event in $listeners) {
 				if (!$listeners.hasOwnProperty(event)) {
 					continue;
 				}
 				const e = this.normalizeEvent(
 					this.document ? window.document : window,
 					event,
-					$listeners[event]
+					$listeners[event],
 				);
 				e.target.addEventListener(e.name, e.handler, e.opts);
 				this.handlers.push(e);
@@ -54,15 +54,15 @@ export default {
 			const capture = name.charAt(0) === '!';
 			name = capture ? name.slice(1) : name;
 			return {
-				target: target,
-				name: name,
-				handler: handler,
+				target,
+				name,
+				handler,
 				opts: {
-					once: once,
-					capture: capture,
-					passive: passive
-				}
+					once,
+					capture,
+					passive,
+				},
 			};
-		}
-	}
+		},
+	},
 };

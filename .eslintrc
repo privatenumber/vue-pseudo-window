@@ -1,6 +1,9 @@
 {
 	"root": true,
 	"extends": "airbnb",
+	"env": {
+		"browser": true
+	},
 	"rules": {
 		"indent": "off",
 		"indent-legacy": ["error", "tab"],

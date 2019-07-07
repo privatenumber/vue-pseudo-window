@@ -16,7 +16,7 @@
     "dev-build": "rollup -cw",
     "dev": "jest --watch",
     "test": "jest",
-    "lint": "eslint src"
+    "lint": "eslint src test"
   },
   "husky": {
     "hooks": {
