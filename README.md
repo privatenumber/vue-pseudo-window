@@ -64,7 +64,7 @@ export default {
 </script>
 ```
 
-### Motivation
+## 🏋️‍ Motivation
 Adding event-handlers on the `window`/`document` can get messy as you have to imperatively write `.addEventListener` code -- steering away from Vue's simple `@event` API -- and clean it up on component destroy.
 
 PseudoWindow is a component that abstracts away event management on the window/document through the Vue API. No more imperative event handling!
