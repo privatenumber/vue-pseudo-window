@@ -2,6 +2,17 @@ import { mount } from '@vue/test-utils';
 import PseudoWindow from '@/PseudoWindow';
 
 describe('Window', () => {
+	it('should not catch "click" event', () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+		});
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(myMockFn).not.toBeCalled();
+		expect(wrapper.element).toMatchSnapshot();
+	});
+
 	it('should catch "resize" event', () => {
 		const myMockFn = jest.fn();
 		const wrapper = mount(PseudoWindow, {
@@ -16,7 +27,7 @@ describe('Window', () => {
 		expect(wrapper.element).toMatchSnapshot();
 	});
 
-	it('should not catch "resize" event', () => {
+	it('should cleanup event handler and not catch "resize" event', () => {
 		const myMockFn = jest.fn();
 		const wrapper = mount(PseudoWindow, {
 			attachToDocument: true,
@@ -44,6 +55,22 @@ describe('Window', () => {
 		global.window.dispatchEvent(new Event('resize'));
 		global.window.dispatchEvent(new Event('resize'));
 		expect(myMockFn.mock.calls.length).toBe(1);
+		expect(wrapper.element).toMatchSnapshot();
+	});
+
+	it('should not catch "resize" event', () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+			listeners: {
+				'~resize': myMockFn,
+			},
+		});
+
+		wrapper.destroy();
+
+		global.window.dispatchEvent(new Event('resize'));
+		expect(myMockFn).not.toBeCalled();
 		expect(wrapper.element).toMatchSnapshot();
 	});
 });
