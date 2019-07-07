@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Document should catch "click" on document 1`] = `<!---->`;
+
+exports[`Document should not catch "resize" on window 1`] = `<!---->`;
+
+exports[`Window should catch "resize" event 1`] = `<!---->`;
+
+exports[`Window should catch "resize" event once 1`] = `<!---->`;
+
+exports[`Window should not catch "resize" event 1`] = `<!---->`;
