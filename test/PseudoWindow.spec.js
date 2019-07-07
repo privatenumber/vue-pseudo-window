@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import PseudoWindow from "@/PseudoWindow.vue";
+import PseudoWindow from "@/PseudoWindow";
 
 describe("Window", () => {
   it("should catch 'resize' event", () => {
