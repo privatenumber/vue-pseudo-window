@@ -8,4 +8,8 @@ exports[`Window should catch "resize" event 1`] = `<!---->`;
 
 exports[`Window should catch "resize" event once 1`] = `<!---->`;
 
+exports[`Window should cleanup event handler and not catch "resize" event 1`] = `<!---->`;
+
+exports[`Window should not catch "click" event 1`] = `<!---->`;
+
 exports[`Window should not catch "resize" event 1`] = `<!---->`;
