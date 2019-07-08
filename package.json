@@ -1,6 +1,9 @@
 {
   "name": "vue-pseudo-window",
   "version": "0.1.4",
+  "files": [
+    "dist"
+  ],
   "main": "dist/PseudoWindow.js",
   "license": "MIT",
   "repository": {
