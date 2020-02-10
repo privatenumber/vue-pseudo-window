@@ -10,7 +10,7 @@
 npm i vue-pseudo-window
 ```
 
-## :beginner: Use case
+## :beginner: Use case [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
 ### Listening to `window` events
 ```vue
