@@ -3,6 +3,8 @@
 <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a>
 <a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a>
 
+> A pseudo "window" component to declaratively interface `window` or `document` in your Vue template
+
 ## :rocket: Quick setup
 
 #### Install
