@@ -1,3 +1,6 @@
+const { hasOwnProperty } = Object.prototype;
+const hasOwn = (obj, prop) => hasOwnProperty.call(obj, prop);
+
 // From: https://github.com/vuejs/vue/blob/6fe07ebf5ab3fea1860c59fe7cdd2ec1b760f9b0/src/core/vdom/helpers/update-listeners.js#L14
 const normalizeEvent = (M_target, M_name, M_handler) => {
 	const passive = M_name[0] === '&';
@@ -21,8 +24,26 @@ const normalizeEvent = (M_target, M_name, M_handler) => {
 	};
 };
 
-const { hasOwnProperty } = Object;
-const hasOwn = (obj, prop) => hasOwnProperty.call(obj, prop);
+const bindEventListners = ($listeners, element, handlers) => {
+	for (const eventName in $listeners) {
+		if (!hasOwn($listeners, eventName)) { continue; }
+		const eventHandler = $listeners[eventName];
+		const e = /* @__PURE__ */normalizeEvent(
+			element,
+			eventName,
+			eventHandler,
+		);
+		e.M_target.addEventListener(e.M_name, e.M_handler, e.M_opts);
+		handlers.push(e);
+	}
+};
+
+const unbindEventListeners = (handlers) => {
+	while (handlers.length) {
+		const e = handlers.shift();
+		e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
+	}
+};
 
 export default {
 	name: 'pseudo-window',
@@ -41,25 +62,14 @@ export default {
 	},
 
 	mounted() {
-		// Bind events
-		for (const $k in this.$listeners) {
-			if (!hasOwn(this.$listeners, $k)) { continue; }
-			const $v = this.$listeners[$k];
-			const e = normalizeEvent(
-				this.document ? window.document : window,
-				$k, // event name
-				$v, // event handler
-			);
-			e.M_target.addEventListener(e.M_name, e.M_handler, e.M_opts);
-			this.M_handlers.push(e);
-		}
+		bindEventListners(
+			this.$listeners,
+			this.document ? window.document : window,
+			this.M_handlers,
+		);
 	},
 
 	destroyed() {
-		// Unbind events
-		while (this.M_handlers.length) {
-			const e = this.M_handlers.shift();
-			e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
-		}
+		unbindEventListeners(this.M_handlers);
 	},
 };
