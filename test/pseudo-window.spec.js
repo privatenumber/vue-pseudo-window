@@ -149,4 +149,136 @@ describe('Document', () => {
 
 		expect(myMockFn).toHaveBeenCalled();
 	});
+
+
+	it('should not catch window event', () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+			propsData: {
+				document: true,
+			},
+			listeners: {
+				click: myMockFn,
+			},
+		});
+
+		wrapper.setProps({ document: true });
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(myMockFn).not.toHaveBeenCalled();
+	});
+
+	it('Switch from window to document', async () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+			listeners: {
+				click: myMockFn,
+			},
+		});
+
+		wrapper.setProps({ document: true });
+		await wrapper.vm.$nextTick();
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(myMockFn).not.toHaveBeenCalled();
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(myMockFn).toHaveBeenCalled();
+	});
+
+	it('Switch from document to window', async () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+			propsData: {
+				document: true,
+			},
+			listeners: {
+				click: myMockFn,
+			},
+		});
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(myMockFn.mock.calls.length).toBe(1);
+
+		wrapper.setProps({ document: false });
+		await wrapper.vm.$nextTick();
+
+		global.window.document.dispatchEvent(new Event('click'));
+		global.window.dispatchEvent(new Event('click'));
+		expect(myMockFn.mock.calls.length).toBe(2);
+	});
+
+	it('Switch from document to window to document', async () => {
+		const myMockFn = jest.fn();
+		const wrapper = mount(PseudoWindow, {
+			attachToDocument: true,
+			propsData: {
+				document: true,
+			},
+			listeners: {
+				click: myMockFn,
+			},
+		});
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(myMockFn.mock.calls.length).toBe(1);
+
+		wrapper.setProps({ document: false });
+		await wrapper.vm.$nextTick();
+
+		global.window.document.dispatchEvent(new Event('click'));
+		global.window.dispatchEvent(new Event('click'));
+		expect(myMockFn.mock.calls.length).toBe(2);
+
+		wrapper.setProps({ document: true });
+		await wrapper.vm.$nextTick();
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(myMockFn.mock.calls.length).toBe(3);
+	});
+});
+
+/*
+- Test toggling between document and window
+- Add class to body
+- SSR
+*/
+
+describe('Body', () => {
+	it('should not catch "resize" on window', () => {
+		const myMockFn = jest.fn();
+		mount(PseudoWindow, {
+			attachToDocument: true,
+			propsData: {
+				document: true,
+			},
+			listeners: {
+				resize: myMockFn,
+			},
+		});
+
+		global.window.dispatchEvent(new Event('resize'));
+
+		expect(myMockFn).not.toHaveBeenCalled();
+	});
+
+	it('should catch "click" on document', () => {
+		const myMockFn = jest.fn();
+		mount(PseudoWindow, {
+			attachToDocument: true,
+			propsData: {
+				document: true,
+			},
+			listeners: {
+				click: myMockFn,
+			},
+		});
+
+		global.window.document.dispatchEvent(new Event('click'));
+
+		expect(myMockFn).toHaveBeenCalled();
+	});
 });
