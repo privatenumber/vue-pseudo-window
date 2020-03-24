@@ -12,7 +12,7 @@ module.exports = {
 	],
 	moduleNameMapper: {
 		'^@/(.*)$': '<rootDir>/src/$1',
-		'vue-subslot': '<rootDir>/src/Subslot',
+		'vue-pseudo-window': '<rootDir>/src/pseudo-window',
 	},
 	snapshotSerializers: [
 		'jest-serializer-vue',
