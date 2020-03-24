@@ -38,18 +38,21 @@ const bindEventListners = ($listeners, element, handlers) => {
 	}
 };
 
-const unbindEventListeners = (handlers) => {
-	while (handlers.length) {
-		const e = handlers.shift();
-		e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
+const unbindEventListeners = (handlers, notTarget) => handlers.filter((e) => {
+	if (notTarget === e.M_target) {
+		return true;
 	}
-};
+
+	e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
+	return false;
+});
 
 export default {
 	name: 'pseudo-window',
 
 	props: {
 		document: Boolean,
+		body: Boolean,
 	},
 
 	render() {
@@ -61,12 +64,29 @@ export default {
 		return { M_handlers: [] };
 	},
 
+	computed: {
+		target() {
+			if (this.body) { return window.document.body; }
+			if (this.document) { return window.document; }
+			return window;
+		},
+	},
+
 	mounted() {
 		bindEventListners(
 			this.$listeners,
-			this.document ? window.document : window,
+			this.target,
 			this.M_handlers,
 		);
+
+		this.$watch(() => this.target, (target) => {
+			this.M_handlers = unbindEventListeners(this.M_handlers, target);
+			bindEventListners(
+				this.$listeners,
+				target,
+				this.M_handlers,
+			);
+		});
 	},
 
 	destroyed() {
