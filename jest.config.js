@@ -11,9 +11,6 @@ module.exports = {
 		'/node_modules/',
 	],
 	moduleNameMapper: {
-		'vue-pseudo-window': '<rootDir>/src/pseudo-window',
+		'vue-pseudo-window': '<rootDir>/dist/pseudo-window',
 	},
-	snapshotSerializers: [
-		'jest-serializer-vue',
-	],
 };
