@@ -1,5 +1,6 @@
 const babel = require('rollup-plugin-babel');
 const { terser } = require('rollup-plugin-terser');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {

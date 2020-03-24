@@ -17,9 +17,9 @@
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
     "dev-build": "rollup -cw",
-    "dev": "jest --watch",
+    "dev": "jest --watchAll",
     "test": "jest",
-    "lint": "eslint src test",
+    "lint": "eslint .",
     "version": "npm run build && git add dist"
   },
   "husky": {
