@@ -3,6 +3,11 @@
 		"jest": true
 	},
 	"rules": {
-		"import/no-unresolved": [2, { ignore: ["^@"] }]
+		"import/no-unresolved": [2, {
+			ignore: [
+				"^@",
+				"vue-pseudo-window"
+			]
+		}]
 	}
 }

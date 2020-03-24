@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PseudoWindow from '@/PseudoWindow';
+import PseudoWindow from 'vue-pseudo-window';
 
 describe('Window', () => {
 	it('should not catch "click" event', () => {
