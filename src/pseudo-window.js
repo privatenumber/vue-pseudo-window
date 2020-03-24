@@ -1,21 +1,19 @@
-// https://github.com/vuejs/vue/blob/6fe07ebf5ab3fea1860c59fe7cdd2ec1b760f9b0/src/core/vdom/helpers/update-listeners.js#L14
-const normalizeEvent = (target, rawName, handler) => {
-	let name = rawName;
+// From: https://github.com/vuejs/vue/blob/6fe07ebf5ab3fea1860c59fe7cdd2ec1b760f9b0/src/core/vdom/helpers/update-listeners.js#L14
+const normalizeEvent = (M_target, M_name, M_handler) => {
+	const passive = M_name[0] === '&';
+	M_name = passive ? M_name.slice(1) : M_name; // eslint-disable-line no-param-reassign
 
-	const passive = name[0] === '&';
-	name = passive ? name.slice(1) : name;
+	const once = M_name[0] === '~'; // Prefixed last, checked first
+	M_name = once ? M_name.slice(1) : M_name; // eslint-disable-line no-param-reassign
 
-	const once = name[0] === '~'; // Prefixed last, checked first
-	name = once ? name.slice(1) : name;
-
-	const capture = name[0] === '!';
-	name = capture ? name.slice(1) : name;
+	const capture = M_name[0] === '!';
+	M_name = capture ? M_name.slice(1) : M_name; // eslint-disable-line no-param-reassign
 
 	return {
-		target,
-		name,
-		handler,
-		opts: {
+		M_target,
+		M_name,
+		M_handler,
+		M_opts: {
 			once,
 			capture,
 			passive,
@@ -39,7 +37,7 @@ export default {
 	},
 
 	data() {
-		return { handlers: [] };
+		return { M_handlers: [] };
 	},
 
 	mounted() {
@@ -52,16 +50,16 @@ export default {
 				$k, // event name
 				$v, // event handler
 			);
-			e.target.addEventListener(e.name, e.handler, e.opts);
-			this.handlers.push(e);
+			e.M_target.addEventListener(e.M_name, e.M_handler, e.M_opts);
+			this.M_handlers.push(e);
 		}
 	},
 
 	destroyed() {
 		// Unbind events
-		while (this.handlers.length) {
-			const e = this.handlers.shift();
-			e.target.removeEventListener(e.name, e.handler, e.opts);
+		while (this.M_handlers.length) {
+			const e = this.M_handlers.shift();
+			e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
 		}
 	},
 };

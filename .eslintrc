@@ -9,6 +9,7 @@
 		"indent-legacy": ["error", "tab"],
 		"no-tabs": "off",
 		"no-restricted-syntax": "off",
-		"no-continue": "off"
+		"no-continue": "off",
+		"camelcase": "off"
 	}
 }

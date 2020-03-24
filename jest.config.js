@@ -11,7 +11,6 @@ module.exports = {
 		'/node_modules/',
 	],
 	moduleNameMapper: {
-		'^@/(.*)$': '<rootDir>/src/$1',
 		'vue-pseudo-window': '<rootDir>/src/pseudo-window',
 	},
 	snapshotSerializers: [
