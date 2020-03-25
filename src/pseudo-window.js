@@ -18,7 +18,7 @@ export default {
 	},
 
 	computed: {
-		target() {
+		M_target() {
 			if (this.body) { return window.document.body; }
 			if (this.document) { return window.document; }
 			return window;
@@ -28,18 +28,22 @@ export default {
 	mounted() {
 		bindEventListners(
 			this.$listeners,
-			this.target,
+			this.M_target,
 			this.M_handlers,
 		);
 
-		this.$watch(() => this.target, (target) => {
-			this.M_handlers = unbindEventListeners(this.M_handlers, target);
-			bindEventListners(
-				this.$listeners,
-				target,
-				this.M_handlers,
-			);
-		});
+		this.$watch(
+			() => this.M_target,
+			(target) => {
+				this.M_handlers = unbindEventListeners(this.M_handlers, target);
+
+				bindEventListners(
+					this.$listeners,
+					target,
+					this.M_handlers,
+				);
+			},
+		);
 	},
 
 	destroyed() {
