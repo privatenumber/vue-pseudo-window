@@ -8,12 +8,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hirokiosame/vue-pseudo-window.git"
+    "url": "git+https://github.com/privatenumber/vue-pseudo-window.git"
   },
   "bugs": {
-    "url": "https://github.com/hirokiosame/vue-pseudo-window/issues"
+    "url": "https://github.com/privatenumber/vue-pseudo-window/issues"
   },
-  "homepage": "https://github.com/hirokiosame/vue-pseudo-window#readme",
+  "homepage": "https://github.com/privatenumber/vue-pseudo-window#readme",
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
     "dev-build": "rollup -cw",
