@@ -38,6 +38,6 @@ export const bindEventListners = ($listeners, element, handlers) => {
 	}
 };
 
-export const unbindEventListeners = (handlers) => handlers.forEach((e) => {
-	e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
-});
+export const unbindEventListeners = (handlers) => handlers.forEach(
+	(e) => e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts),
+);
