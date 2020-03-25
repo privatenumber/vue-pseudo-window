@@ -5,7 +5,6 @@ export default {
 
 	props: {
 		document: Boolean,
-		body: Boolean,
 	},
 
 	render() {
@@ -19,23 +18,16 @@ export default {
 
 	computed: {
 		M_target() {
-			if (this.body) { return window.document.body; }
-			if (this.document) { return window.document; }
-			return window;
+			return this.document ? window.document : window;
 		},
 	},
 
 	mounted() {
-		bindEventListners(
-			this.$listeners,
-			this.M_target,
-			this.M_handlers,
-		);
-
 		this.$watch(
 			() => this.M_target,
 			(target) => {
-				this.M_handlers = unbindEventListeners(this.M_handlers, target);
+				unbindEventListeners(this.M_handlers);
+				this.M_handlers = [];
 
 				bindEventListners(
 					this.$listeners,
@@ -43,6 +35,7 @@ export default {
 					this.M_handlers,
 				);
 			},
+			{ immediate: true },
 		);
 	},
 
