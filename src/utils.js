@@ -38,11 +38,6 @@ export const bindEventListners = ($listeners, element, handlers) => {
 	}
 };
 
-export const unbindEventListeners = (handlers, notTarget) => handlers.filter((e) => {
-	if (notTarget === e.M_target) {
-		return true;
-	}
-
+export const unbindEventListeners = (handlers) => handlers.forEach((e) => {
 	e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
-	return false;
 });
