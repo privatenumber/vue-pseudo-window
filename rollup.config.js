@@ -11,12 +11,11 @@ export default {
 			exclude: 'src/bind-class/class*.js',
 		}),
 		isProd && terser({
-			mangle: false,
-			// {
-			// 	properties: {
-			// 		regex: /^M_/,
-			// 	},
-			// },
+			mangle: {
+				properties: {
+					regex: /^M_/,
+				},
+			},
 		}),
 		isProd && filesize(),
 	],
