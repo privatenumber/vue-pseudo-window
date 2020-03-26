@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import PseudoWindow from 'vue-pseudo-window';
 
@@ -25,9 +24,7 @@ describe('Slot', () => {
 		expect(wrapper.html()).toBe('<div>Hello world</div>');
 	});
 
-	it('should warn on multiple children', () => {
-		const warnHandler = jest.fn();
-		Vue.config.warnHandler = warnHandler;
+	it('pass through multiple children', () => {
 		const wrapper = mount({
 			template: `
 				<div>
@@ -41,202 +38,207 @@ describe('Slot', () => {
 				PseudoWindow,
 			},
 		});
-		expect(wrapper.html()).toBe('<div>\n  <!---->\n</div>');
-		expect(warnHandler).toBeCalled();
+		expect(wrapper.html()).toBe('<div>\n  <div>Hello world</div>\n  <div>Hello world</div>\n</div>');
 	});
 });
 
 describe('Window', () => {
-	it('should not catch "click" event', () => {
-		const myMockFn = jest.fn();
-		mount(PseudoWindow, {
+	it('should catch "click" event', () => {
+		const clickHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						@click="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				clickHandler,
+			},
+		}, {
 			attachToDocument: true,
 		});
 
 		global.window.dispatchEvent(new Event('click'));
-		expect(myMockFn).not.toBeCalled();
+		expect(clickHandler).toBeCalled();
 	});
 
 	it('should catch "resize" event', () => {
-		const myMockFn = jest.fn();
-		mount(PseudoWindow, {
-			attachToDocument: true,
-			listeners: {
-				resize: myMockFn,
+		const resizeHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						@resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
 			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
+			attachToDocument: true,
 		});
 
 		global.window.dispatchEvent(new Event('resize'));
-		expect(myMockFn).toBeCalled();
+		expect(resizeHandler).toBeCalled();
 	});
 
 	it('should cleanup event handler and not catch "resize" event', () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
-			attachToDocument: true,
-			listeners: {
-				resize: myMockFn,
+		const resizeHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						@resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
 			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
+			attachToDocument: true,
 		});
 
 		wrapper.destroy();
 
 		global.window.dispatchEvent(new Event('resize'));
-		expect(myMockFn).not.toHaveBeenCalled();
+		expect(resizeHandler).not.toBeCalled();
 	});
 
 	it('should catch "resize" event once', () => {
-		const myMockFn = jest.fn();
-		mount(PseudoWindow, {
-			attachToDocument: true,
-			listeners: {
-				'~resize': myMockFn,
+		const resizeHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						@~resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
 			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
+			attachToDocument: true,
 		});
 
 		global.window.dispatchEvent(new Event('resize'));
 		global.window.dispatchEvent(new Event('resize'));
-		expect(myMockFn.mock.calls.length).toBe(1);
-	});
-
-	it('should not catch "resize" event', () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
-			attachToDocument: true,
-			listeners: {
-				'~resize': myMockFn,
-			},
-		});
-
-		wrapper.destroy();
-
-		global.window.dispatchEvent(new Event('resize'));
-		expect(myMockFn).not.toBeCalled();
+		expect(resizeHandler.mock.calls.length).toBe(1);
 	});
 });
 
 describe('Document', () => {
 	it('should not catch "resize" on window', () => {
-		const myMockFn = jest.fn();
-		mount(PseudoWindow, {
+		const resizeHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						document
+						@resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
 			attachToDocument: true,
-			propsData: {
-				document: true,
-			},
-			listeners: {
-				resize: myMockFn,
-			},
 		});
 
 		global.window.dispatchEvent(new Event('resize'));
-
-		expect(myMockFn).not.toHaveBeenCalled();
+		expect(resizeHandler).not.toHaveBeenCalled();
 	});
 
 	it('should catch "click" on document', () => {
-		const myMockFn = jest.fn();
-		mount(PseudoWindow, {
+		const clickHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						document
+						@click="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				clickHandler,
+			},
+		}, {
 			attachToDocument: true,
-			propsData: {
-				document: true,
-			},
-			listeners: {
-				click: myMockFn,
-			},
 		});
 
 		global.window.document.dispatchEvent(new Event('click'));
-
-		expect(myMockFn).toHaveBeenCalled();
+		expect(clickHandler).toHaveBeenCalled();
 	});
 
-
-	it('should not catch window event', () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
+	it('swithc from window to document to window', async () => {
+		const clickHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						:document="document"
+						@click="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			data() {
+				return {
+					document: false,
+				};
+			},
+			methods: {
+				clickHandler,
+			},
+		}, {
 			attachToDocument: true,
-			propsData: {
-				document: true,
-			},
-			listeners: {
-				click: myMockFn,
-			},
 		});
-
-		wrapper.setProps({ document: true });
 
 		global.window.dispatchEvent(new Event('click'));
-		expect(myMockFn).not.toHaveBeenCalled();
-	});
+		expect(clickHandler).toHaveBeenCalled();
 
-	it('Switch from window to document', async () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
-			attachToDocument: true,
-			listeners: {
-				click: myMockFn,
-			},
-		});
-
-		wrapper.setProps({ document: true });
+		wrapper.setData({ document: true });
 		await wrapper.vm.$nextTick();
 
 		global.window.dispatchEvent(new Event('click'));
-		expect(myMockFn).not.toHaveBeenCalled();
+		expect(clickHandler.mock.calls.length).toBe(1);
 
 		global.window.document.dispatchEvent(new Event('click'));
-		expect(myMockFn).toHaveBeenCalled();
-	});
+		expect(clickHandler.mock.calls.length).toBe(2);
 
-	it('Switch from document to window', async () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
-			attachToDocument: true,
-			propsData: {
-				document: true,
-			},
-			listeners: {
-				click: myMockFn,
-			},
-		});
-
-		global.window.document.dispatchEvent(new Event('click'));
-		expect(myMockFn.mock.calls.length).toBe(1);
-
-		wrapper.setProps({ document: false });
+		wrapper.setData({ document: false });
 		await wrapper.vm.$nextTick();
 
 		global.window.document.dispatchEvent(new Event('click'));
+		expect(clickHandler.mock.calls.length).toBe(2);
+
 		global.window.dispatchEvent(new Event('click'));
-		expect(myMockFn.mock.calls.length).toBe(2);
-	});
-
-	it('Switch from document to window to document', async () => {
-		const myMockFn = jest.fn();
-		const wrapper = mount(PseudoWindow, {
-			attachToDocument: true,
-			propsData: {
-				document: true,
-			},
-			listeners: {
-				click: myMockFn,
-			},
-		});
-
-		global.window.document.dispatchEvent(new Event('click'));
-		expect(myMockFn.mock.calls.length).toBe(1);
-
-		wrapper.setProps({ document: false });
-		await wrapper.vm.$nextTick();
-
-		global.window.document.dispatchEvent(new Event('click'));
-		global.window.dispatchEvent(new Event('click'));
-		expect(myMockFn.mock.calls.length).toBe(2);
-
-		wrapper.setProps({ document: true });
-		await wrapper.vm.$nextTick();
-
-		global.window.document.dispatchEvent(new Event('click'));
-		expect(myMockFn.mock.calls.length).toBe(3);
+		expect(clickHandler.mock.calls.length).toBe(3);
 	});
 });
