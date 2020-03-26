@@ -1,45 +1,33 @@
-import { bindEventListners, unbindEventListeners } from './utils';
+import bindEventListners from './bind-event-listeners';
+
+const addEventListeners = ({ props, listeners, parent }) => {
+	const unbindEventListeners = bindEventListners(
+		props.document ? window.document : window,
+		listeners,
+	);
+
+	parent.$once('hook:beforeUpdate', unbindEventListeners);
+	parent.$once('hook:destroyed', unbindEventListeners);
+};
 
 export default {
 	name: 'pseudo-window',
+
+	functional: true,
 
 	props: {
 		document: Boolean,
 	},
 
-	render() {
-		const defSlot = this.$slots.default;
-		return defSlot && defSlot.length === 1 ? defSlot[0] : defSlot;
-	},
+	render(h, ctx) {
+		if (ctx.parent._isMounted) { // eslint-disable-line no-underscore-dangle
+			addEventListeners(ctx);
+		} else {
+			ctx.parent.$once('hook:mounted', () => {
+				addEventListeners(ctx);
+			});
+		}
 
-	data() {
-		return { M_handlers: [] };
-	},
-
-	computed: {
-		M_target() {
-			return this.document ? window.document : window;
-		},
-	},
-
-	mounted() {
-		this.$watch(
-			() => this.M_target,
-			(target) => {
-				unbindEventListeners(this.M_handlers);
-				this.M_handlers = [];
-
-				bindEventListners(
-					this.$listeners,
-					target,
-					this.M_handlers,
-				);
-			},
-			{ immediate: true },
-		);
-	},
-
-	destroyed() {
-		unbindEventListeners(this.M_handlers);
+		return ctx.slots().default;
 	},
 };
