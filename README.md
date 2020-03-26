@@ -1,13 +1,17 @@
-# Pseudo Window
+# :framed_picture: Pseudo Window
 <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a>
 <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a>
 <a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a>
 
-> A pseudo "window" component to declaratively interface `window` or `document` in your Vue template
+> A pseudo `window` component to declaratively bind event-listeners to `window` or `document` in your Vue template
 
-## :rocket: Quick setup
+## :raised_hand: Why?
+- **Noise reduction** No longer concern or pollute your component with `.addEventListener()` & `.removeEventListener()` code
+- **Declarative API** Use Vue's `@event` syntax to add event-listeners to the window as like you would to any other element
+- **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
+- **Tiny** Optimized for high compression and includes only the bare minimum
 
-#### Install
+## :rocket: Installation
 ```sh
 npm i vue-pseudo-window
 ```
@@ -113,33 +117,5 @@ export default {
 </script>
 ```
 
-
-## 🏋️‍ Motivation
-Adding event-handlers on the `window`/`document` can get messy with `.addEventListener()` & `.removeEventListener()` code — steering away from the convention set by Vue's simple `@event` API. The PseudoWindow component abstracts away event management on the `window`/`document` with a declartive template API. No more imperative event handling and cleanup! Supports all event modifiers `capture`, `passive`, and `once`.
-
-Without the PseudoWindow, you may write:
-```vue
-<template>
-	<div>
-		Handle window resize
-	</div>
-</template>
-
-<script>
-export default {
-	methods: {
-		onResize() {
-			console.log('Resized!')
-		}
-	},
-
-	mounted() {
-		window.addEventListener('resize', this.onResize)
-	},
-
-	destroyed() {
-		window.removeEventListener('resize', this.onResize)
-	}
-}
-</script>
-```
+## Related
+- [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component

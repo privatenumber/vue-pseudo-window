@@ -1,13 +1,13 @@
 import bindEventListners from './bind-event-listeners';
 
-const addEventListeners = ({ props, listeners, parent }) => {
+const addEventListeners = (ctx) => {
 	const unbindEventListeners = bindEventListners(
-		props.document ? window.document : window,
-		listeners,
+		ctx.props.document ? window.document : window,
+		ctx.listeners,
 	);
 
-	parent.$once('hook:beforeUpdate', unbindEventListeners);
-	parent.$once('hook:destroyed', unbindEventListeners);
+	ctx.parent.$once('hook:beforeUpdate', unbindEventListeners);
+	ctx.parent.$once('hook:destroyed', unbindEventListeners);
 };
 
 export default {
