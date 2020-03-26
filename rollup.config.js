@@ -8,8 +8,7 @@ export default {
 	input: 'src/pseudo-window.js',
 	plugins: [
 		babel({
-			exclude: 'node_modules/**',
-			runtimeHelpers: true,
+			exclude: 'src/bind-class/class*.js',
 		}),
 		isProd && terser({
 			mangle: {

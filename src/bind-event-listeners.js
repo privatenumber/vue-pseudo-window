@@ -44,7 +44,22 @@ const bindEventListners = (element, $listeners) => {
 		e.M_target.addEventListener(e.M_name, e.M_handler, e.M_opts);
 		handlers.push(e);
 	}
-	return () => unbindEventListeners(handlers);
+	return handlers;
 };
 
-export default bindEventListners;
+const getTarget = ({ props }) => {
+	if (props.body) { return window.document.body; }
+	if (props.document) { return window.document; }
+	return window;
+};
+
+export default (ctx) => {
+	const handlers = bindEventListners(
+		getTarget(ctx),
+		ctx.listeners,
+	);
+
+	const off = () => { unbindEventListeners(handlers); };
+	ctx.parent.$once('hook:beforeUpdate', off);
+	ctx.parent.$once('hook:destroyed', off);
+};
