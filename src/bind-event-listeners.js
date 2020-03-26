@@ -1,7 +1,7 @@
 const { hasOwnProperty } = Object.prototype;
 const hasOwn = (obj, prop) => hasOwnProperty.call(obj, prop);
 
-// From: https://github.com/vuejs/vue/blob/6fe07ebf5ab3fea1860c59fe7cdd2ec1b760f9b0/src/core/vdom/helpers/update-listeners.js#L14
+// From: https://github.com/vuejs/vue/blob/b00868c/src/core/vdom/helpers/update-listeners.js#L14
 const normalizeEvent = (M_target, M_name, M_handler) => {
 	const passive = M_name[0] === '&';
 	M_name = passive ? M_name.slice(1) : M_name; // eslint-disable-line no-param-reassign
@@ -24,7 +24,15 @@ const normalizeEvent = (M_target, M_name, M_handler) => {
 	};
 };
 
-export const bindEventListners = ($listeners, element, handlers) => {
+const unbindEventListeners = (handlers) => {
+	let e;
+	while (e = handlers.shift()) { // eslint-disable-line no-cond-assign
+		e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts);
+	}
+};
+
+const bindEventListners = (element, $listeners) => {
+	const handlers = [];
 	for (const eventName in $listeners) {
 		if (!hasOwn($listeners, eventName)) { continue; }
 		const eventHandler = $listeners[eventName];
@@ -36,8 +44,7 @@ export const bindEventListners = ($listeners, element, handlers) => {
 		e.M_target.addEventListener(e.M_name, e.M_handler, e.M_opts);
 		handlers.push(e);
 	}
+	return () => unbindEventListeners(handlers);
 };
 
-export const unbindEventListeners = (handlers) => handlers.forEach(
-	(e) => e.M_target.removeEventListener(e.M_name, e.M_handler, e.M_opts),
-);
+export default bindEventListners;
