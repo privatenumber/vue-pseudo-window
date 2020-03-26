@@ -242,30 +242,3 @@ describe('Document', () => {
 		expect(clickHandler.mock.calls.length).toBe(3);
 	});
 });
-
-describe('Body', () => {
-	it('should catch "click" on body', () => {
-		const clickHandler = jest.fn();
-		mount({
-			template: `
-				<div>
-					<pseudo-window
-						body
-						@click="clickHandler"
-					/>
-				</div>
-			`,
-			components: {
-				PseudoWindow,
-			},
-			methods: {
-				clickHandler,
-			},
-		}, {
-			attachToDocument: true,
-		});
-
-		global.window.document.body.dispatchEvent(new Event('click'));
-		expect(clickHandler).toHaveBeenCalled();
-	});
-});
