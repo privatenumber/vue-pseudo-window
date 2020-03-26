@@ -1,7 +1,7 @@
 {
   "name": "vue-pseudo-window",
   "version": "0.1.4",
-  "description": "👻 Component to declaratively interface window/document in your Vue template",
+  "description": "🖼 Declaratively interface window/document in your Vue template",
   "keywords": [
     "vue",
     "declarative",
