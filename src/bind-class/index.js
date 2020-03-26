@@ -7,9 +7,8 @@ export default ({ data, parent }) => {
 	const classStr = renderClass(data.staticClass, data.class);
 	if (!classStr) { return; }
 
-	addClass(BODY, classStr);
-
-	const off = () => { removeClass(BODY, classStr); };
+	const added = addClass(BODY, classStr);
+	const off = () => { removeClass(BODY, added); };
 	parent.$once('hook:beforeUpdate', off);
 	parent.$once('hook:destroyed', off);
 };
