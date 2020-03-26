@@ -194,7 +194,7 @@ describe('Document', () => {
 		expect(clickHandler).toHaveBeenCalled();
 	});
 
-	it('swithc from window to document to window', async () => {
+	it('switch from window to document to window', async () => {
 		const clickHandler = jest.fn();
 		const wrapper = mount({
 			template: `
