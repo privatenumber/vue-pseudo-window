@@ -1,13 +1,12 @@
-import bindEventListners from './bind-event-listeners';
+import bindClass from './bind-class/index';
+import bindEventListeners from './bind-event-listeners';
 
-const addEventListeners = (ctx) => {
-	const unbindEventListeners = bindEventListners(
-		ctx.props.document ? window.document : window,
-		ctx.listeners,
-	);
+const init = (ctx) => {
+	bindEventListeners(ctx);
 
-	ctx.parent.$once('hook:beforeUpdate', unbindEventListeners);
-	ctx.parent.$once('hook:destroyed', unbindEventListeners);
+	if (ctx.props.body) {
+		bindClass(ctx);
+	}
 };
 
 export default {
@@ -17,14 +16,15 @@ export default {
 
 	props: {
 		document: Boolean,
+		body: Boolean,
 	},
 
 	render(h, ctx) {
 		if (ctx.parent._isMounted) { // eslint-disable-line no-underscore-dangle
-			addEventListeners(ctx);
+			init(ctx);
 		} else {
 			ctx.parent.$once('hook:mounted', () => {
-				addEventListeners(ctx);
+				init(ctx);
 			});
 		}
 
