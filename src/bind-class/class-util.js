@@ -1,14 +1,11 @@
 // From https://github.com/vuejs/vue/blob/265dd457789bf726f95dd0578c1ce65a8b6ae9fd/src/platforms/web/runtime/class-util.js
 /* eslint-disable */
 
-const whitespaceRE = /\s+/;
-
-export function addClass(el, cls) {
-	if (!cls || !(cls = cls.trim())) {
+export function addClass(el, classes) {
+	if (!classes.length) {
 		return;
 	}
 
-	const classes = cls.split(whitespaceRE);
 	const { classList } = el;
 
 	return classes.filter((c) => {
@@ -20,7 +17,7 @@ export function addClass(el, cls) {
 }
 
 export function removeClass(el, classes) {
-	if (!classes.length) {
+	if (!classes || !classes.length) {
 		return;
 	}
 
@@ -32,4 +29,4 @@ export function removeClass(el, classes) {
 	if (!el.classList.length) {
 		el.removeAttribute('class');
 	}
-}
+};
