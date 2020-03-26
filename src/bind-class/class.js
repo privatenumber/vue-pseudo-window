@@ -9,16 +9,6 @@ function isObject(obj) {
 	return obj !== null && typeof obj === 'object';
 }
 
-export function renderClass(
-  staticClass,
-  dynamicClass,
-) {
-	if (isDef(staticClass) || isDef(dynamicClass)) {
-		return concat(staticClass, stringifyClass(dynamicClass));
-	}
-	return '';
-}
-
 function concat(a, b) {
 	return a ? b ? (`${a} ${b}`) : a : (b || '');
 }
@@ -57,4 +47,14 @@ function stringifyObject(value) {
 		}
 	}
 	return res;
+}
+
+export function renderClass(
+  staticClass,
+  dynamicClass,
+) {
+	if (isDef(staticClass) || isDef(dynamicClass)) {
+		return concat(staticClass, stringifyClass(dynamicClass));
+	}
+	return '';
 }

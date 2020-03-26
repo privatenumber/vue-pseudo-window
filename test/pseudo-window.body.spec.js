@@ -134,7 +134,40 @@ describe('Class', () => {
 	});
 
 
-	it('work with existing class', async () => {
+	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	it('reactivity 2', async () => {
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						body
+						class="static-class"
+					/>
+					{{ counter }}
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			data() {
+				return {
+					counter: 0,
+				};
+			},
+
+			mounted() {
+				setInterval(() => {
+					this.counter += 1;
+				}, 100);
+			},
+		});
+
+		await sleep(1000);
+		wrapper.destroy();
+	});
+
+	it('work with different existing class', async () => {
 		const { classList } = global.window.document.body;
 		classList.add('should-remain');
 
@@ -151,6 +184,29 @@ describe('Class', () => {
 		});
 
 		expect(classList.contains('static-class')).toBe(true);
+
+		wrapper.destroy();
+
+		expect(classList.contains('should-remain')).toBe(true);
+	});
+
+	it('work with colliding existing class', async () => {
+		const { classList } = global.window.document.body;
+		classList.add('should-remain');
+
+		expect(classList.contains('should-remain')).toBe(true);
+
+		const wrapper = mount({
+			template: `
+				<pseudo-window
+					body
+					class="should-remain"
+				/>
+			`,
+			components: {
+				PseudoWindow,
+			},
+		});
 
 		wrapper.destroy();
 

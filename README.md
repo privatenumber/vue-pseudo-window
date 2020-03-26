@@ -18,7 +18,7 @@ npm i vue-pseudo-window
 
 ## :beginner: Use case [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
-### Listening to `window` events
+### Adding event listeners to `window`
 ```vue
 <template>
 	<div>
@@ -26,8 +26,9 @@ npm i vue-pseudo-window
 			Window width: {{ winWidth }}
 		</div>
 
-		<pseudo-window @resize.passive="onResize" />
-		<!-- Handle window resize ^ -->
+		<pseudo-window
+			@resize.passive="onResize" <!-- Handle window resize with "passive" option -->
+		/>
 	</div>
 </template>
 
@@ -54,12 +55,14 @@ export default {
 </script>
 ```
 
-### Listening to `document` events
+### Adding event listeners to `document`
 ```vue
 <template>
 	<div>
-		<pseudo-window document @click="onClick" />
-		<!-- Handle document click ^ -->
+		<pseudo-window
+			document
+			@click="onClick" <!-- Handle document click -->
+		/>
 	</div>
 </template>
 
@@ -78,6 +81,45 @@ export default {
 	}
 }
 </script>
+```
+
+### Adding event listeners and classes to `document.body`
+```vue
+<template>
+	<div>
+		<pseudo-window
+			body
+
+			<!-- Add a class to document.body -->
+			:class="$style.lockScroll"
+
+			<!-- Handle document.body click -->
+			@click="onClick"
+		/>
+	</div>
+</template>
+
+<script>
+import PseudoWindow from 'vue-pseudo-window';
+
+export default {
+	components: {
+		PseudoWindow
+	},
+
+	methods: {
+		onClick() {
+			console.log('Body click!')
+		}
+	}
+}
+</script>
+
+<style module>
+.lockScroll {
+	overflow: hidden;
+}
+</style>
 ```
 
 ### When you only want one root element
