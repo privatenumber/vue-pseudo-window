@@ -28,7 +28,6 @@ export default {
 			});
 		}
 
-		const defSlot = ctx.slots().default;
-		return defSlot && defSlot.length === 1 ? defSlot[0] : defSlot;
+		return ctx.slots().default;
 	},
 };
