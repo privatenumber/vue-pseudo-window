@@ -91,7 +91,7 @@ describe('Window', () => {
 		expect(resizeHandler).toBeCalled();
 	});
 
-	it('should cleanup event handler and not catch "resize" event', () => {
+	it('should cleanup after destroy', () => {
 		const resizeHandler = jest.fn();
 		const wrapper = mount({
 			template: `
@@ -115,6 +115,48 @@ describe('Window', () => {
 
 		global.window.dispatchEvent(new Event('resize'));
 		expect(resizeHandler).not.toBeCalled();
+	});
+
+	it('should cleanup after v-if="false"', async () => {
+		const resizeHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						v-if="handle"
+						@resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			data() {
+				return {
+					handle: true,
+				};
+			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.dispatchEvent(new Event('resize'));
+		expect(resizeHandler.mock.calls.length).toBe(1);
+
+		wrapper.setData({ handle: false });
+		await wrapper.vm.$nextTick();
+
+		global.window.dispatchEvent(new Event('resize'));
+		expect(resizeHandler.mock.calls.length).toBe(1);
+
+		wrapper.setData({ handle: true });
+		await wrapper.vm.$nextTick();
+
+		global.window.dispatchEvent(new Event('resize'));
+		expect(resizeHandler.mock.calls.length).toBe(2);
 	});
 
 	it('should catch "resize" event once', () => {
