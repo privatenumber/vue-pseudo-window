@@ -1,10 +1,17 @@
 {
   "name": "vue-pseudo-window",
   "version": "0.1.4",
-  "files": [
-    "dist"
+  "description": "👻 Component to declaratively interface window/document in your Vue template",
+  "keywords": [
+    "vue",
+    "declarative",
+    "template",
+    "window",
+    "document",
+    "event",
+    "event listener"
   ],
-  "main": "dist/pseudo-window.js",
+  "author": "Hiroki Osame <hiroki.osame@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -14,6 +21,10 @@
     "url": "https://github.com/privatenumber/vue-pseudo-window/issues"
   },
   "homepage": "https://github.com/privatenumber/vue-pseudo-window#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/pseudo-window.js",
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
     "dev-build": "rollup -cw",
