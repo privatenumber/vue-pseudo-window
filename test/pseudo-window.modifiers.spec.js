@@ -1,0 +1,195 @@
+import { mount } from '@vue/test-utils';
+import PseudoWindow from 'vue-pseudo-window';
+
+describe('Modifiers', () => {
+	it('prevent', () => {
+		const preventedCapture = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						body
+						@click.prevent="bodyClickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				bodyClickHandler(e) {
+					preventedCapture(e.defaultPrevented);
+				},
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.document.body.click();
+		expect(preventedCapture).toBeCalled();
+		expect(preventedCapture.mock.calls[0][0]).toBe(true);
+
+		wrapper.destroy();
+	});
+
+	it('self', () => {
+		const buttonClickHandler = jest.fn();
+		const bodyClickHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						body
+						@click.self="bodyClickHandler"
+					/>
+					<button
+						id="button"
+						@click="buttonClickHandler"
+					>
+						Click me
+					</button>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				buttonClickHandler,
+				bodyClickHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.button.click();
+		expect(buttonClickHandler).toBeCalled();
+		expect(bodyClickHandler).not.toBeCalled();
+
+		global.window.document.body.click();
+		expect(bodyClickHandler).toBeCalled();
+		wrapper.destroy();
+	});
+
+	it('stop', () => {
+		const windowClickHandler = jest.fn();
+		const bodyClickHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						@click="windowClickHandler"
+					/>
+					<pseudo-window
+						body
+						@click.stop="bodyClickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				windowClickHandler,
+				bodyClickHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.document.body.click();
+		expect(bodyClickHandler).toBeCalled();
+		expect(windowClickHandler).not.toBeCalled();
+		wrapper.destroy();
+	});
+
+	it('once', () => {
+		const clickHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						body
+						@click.once="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				clickHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.document.body.click();
+		global.window.document.body.click();
+		expect(clickHandler.mock.calls.length).toBe(1);
+		wrapper.destroy();
+	});
+
+	it('capture', () => {
+		const eventPhaseCapture = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						@click.capture="windowClickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				windowClickHandler(e) {
+					// Pass in the primitive so it doesn't check at assertion
+					eventPhaseCapture(e.eventPhase);
+				},
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.document.body.click();
+		expect(eventPhaseCapture).toBeCalled();
+
+		// (capturing=1, target=2, bubbling=3)
+		expect(eventPhaseCapture.mock.calls[0][0]).toBe(1);
+		wrapper.destroy();
+	});
+
+	it('passive', () => {
+		const preventedCapture = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						document
+						@click.passive="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				clickHandler(e) {
+					e.preventDefault();
+
+					// Pass in the primitive so it doesn't check at assertion
+					preventedCapture(e.defaultPrevented);
+				},
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.document.body.click();
+		expect(preventedCapture).toBeCalled();
+
+		expect(preventedCapture.mock.calls[0][0]).toBe(false);
+		wrapper.destroy();
+	});
+});
