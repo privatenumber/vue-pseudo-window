@@ -9,10 +9,10 @@
 > A pseudo `window` component to declaratively bind event-listeners to `window` or `document` in your Vue template
 
 ## :raising_hand: Why?
-- **Noise reduction** No longer concern or pollute your component with `.addEventListener()` & `.removeEventListener()` code
-- **Declarative API** Use Vue's `@event` syntax to add event-listeners to the window as like you would to any other element
-- **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
-- **Tiny** Optimized for high compression and includes only the bare minimum
+- :sparkles: **Cleaner code** No longer concern or pollute your component with `.addEventListener()` & `.removeEventListener()` code
+- :recycle: **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
+- :muscle: **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
+- :hatched_chick: **Tiny** 855 B Gzipped!
 
 ## :rocket: Install
 ```sh
@@ -30,7 +30,8 @@ npm i vue-pseudo-window
 		</div>
 
 		<pseudo-window
-			@resize.passive="onResize" <!-- Handle window resize with "passive" option -->
+			<!-- Handle window resize with "passive" option -->
+			@resize.passive="onResize"
 		/>
 	</div>
 </template>
@@ -64,7 +65,9 @@ export default {
 	<div>
 		<pseudo-window
 			document
-			@click="onClick" <!-- Handle document click -->
+			
+			<!-- Handle document click -->
+			@click="onClick"
 		/>
 	</div>
 </template>
