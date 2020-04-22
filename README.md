@@ -6,7 +6,7 @@
 	<a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
 </h1>
 
-> A pseudo `window` component to declaratively bind event-listeners to `window` or `document` in your Vue template
+Bind handlers to the `<pseudo-window>` component to listen to events on `window`/`document`/`body`!
 
 ## :raising_hand: Why?
 - :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
