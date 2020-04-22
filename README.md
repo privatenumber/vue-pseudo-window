@@ -19,9 +19,12 @@ Bind handlers to the `<pseudo-window>` component to listen to events on `window`
 npm i vue-pseudo-window
 ```
 
-## :man_teacher: Use case [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
+## :man_teacher: Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
-### Adding event listeners to `window`
+<details>
+	<summary><strong>Adding listeners to <code>window</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
@@ -58,8 +61,12 @@ export default {
 }
 </script>
 ```
+</details>
 
-### Adding event listeners to `document`
+<details>
+	<summary><strong>Adding listeners to <code>document</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
@@ -88,8 +95,12 @@ export default {
 }
 </script>
 ```
+</details>
 
-### Adding event listeners and classes to `document.body`
+<details>
+	<summary><strong>Adding class & listeners to <code>body</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
@@ -127,8 +138,12 @@ export default {
 }
 </style>
 ```
+</details>
 
-### When you only want one root element
+<details>
+	<summary><strong>Only want one root element?</strong></summary>
+	<br>
+	
 The PseudoWindow is a functional component that returns exactly what's passed into it. By using it as the root component, its contents will pass-through.
 ```vue
 <template>
@@ -164,9 +179,13 @@ export default {
 }
 </script>
 ```
+</details>
+
+
+
+
 
 ## :family: Related
 - [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component
 - [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component for Vue.js
 - [vue-vnode-syringe](https://github.com/privatenumber/vue-vnode-syringe) - 🧬Mutate your vNodes with vNode Syringe 💉
-
