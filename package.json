@@ -43,7 +43,7 @@
     "@babel/preset-env": "^7.8.4",
     "@vue/server-test-utils": "^1.0.0-beta.32",
     "@vue/test-utils": "^1.0.0-beta.32",
-    "babel-jest": "^25.2.6",
+    "babel-jest": "^26.0.1",
     "eslint": "^6.0.1",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
