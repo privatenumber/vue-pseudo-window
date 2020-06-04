@@ -3,14 +3,39 @@ import PseudoWindow from 'vue-pseudo-window';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-describe('Events', () => {
-	it('should catch "click" on body', () => {
+describe('Document', () => {
+	it('should not catch "resize" on window', () => {
+		const resizeHandler = jest.fn();
+		mount({
+			template: `
+				<div>
+					<pseudo-window
+						document
+						@resize="resizeHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			methods: {
+				resizeHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.dispatchEvent(new Event('resize'));
+		expect(resizeHandler).not.toHaveBeenCalled();
+	});
+
+	it('should catch "click" on document', () => {
 		const clickHandler = jest.fn();
 		mount({
 			template: `
 				<div>
 					<pseudo-window
-						body
+						document
 						@click="clickHandler"
 					/>
 				</div>
@@ -25,33 +50,65 @@ describe('Events', () => {
 			attachToDocument: true,
 		});
 
-		global.window.document.body.dispatchEvent(new Event('click'));
+		global.window.document.dispatchEvent(new Event('click'));
 		expect(clickHandler).toHaveBeenCalled();
+	});
+
+	it('switch from window to document to window', async () => {
+		const clickHandler = jest.fn();
+		const wrapper = mount({
+			template: `
+				<div>
+					<pseudo-window
+						:document="document"
+						@click="clickHandler"
+					/>
+				</div>
+			`,
+			components: {
+				PseudoWindow,
+			},
+			data() {
+				return {
+					document: false,
+				};
+			},
+			methods: {
+				clickHandler,
+			},
+		}, {
+			attachToDocument: true,
+		});
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(clickHandler).toHaveBeenCalled();
+
+		wrapper.setData({ document: true });
+		await wrapper.vm.$nextTick();
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(clickHandler.mock.calls.length).toBe(1);
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(clickHandler.mock.calls.length).toBe(2);
+
+		wrapper.setData({ document: false });
+		await wrapper.vm.$nextTick();
+
+		global.window.document.dispatchEvent(new Event('click'));
+		expect(clickHandler.mock.calls.length).toBe(2);
+
+		global.window.dispatchEvent(new Event('click'));
+		expect(clickHandler.mock.calls.length).toBe(3);
 	});
 });
 
 describe('Class', () => {
-	it('invalid', async () => {
-		mount({
-			template: `
-				<pseudo-window
-					class="static-class"
-				/>
-			`,
-			components: {
-				PseudoWindow,
-			},
-		});
-
-		const { classList } = global.window.document.body;
-		expect(classList.contains('static-class')).toBe(false);
-	});
-
 	it('static class', async () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
-					body
+					document
 					class="static-class"
 				/>
 			`,
@@ -60,7 +117,7 @@ describe('Class', () => {
 			},
 		});
 
-		const { classList } = global.window.document.body;
+		const { classList } = global.window.document.documentElement;
 		expect(classList.contains('static-class')).toBe(true);
 
 		wrapper.destroy();
@@ -72,7 +129,7 @@ describe('Class', () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
-					body
+					document
 					class="static-class"
 					:class="[
 						'class-a',
@@ -88,7 +145,7 @@ describe('Class', () => {
 			},
 		});
 
-		const { classList } = global.window.document.body;
+		const { classList } = global.window.document.documentElement;
 		expect(classList.contains('static-class')).toBe(true);
 		expect(classList.contains('class-a')).toBe(true);
 		expect(classList.contains('class-b')).toBe(true);
@@ -106,7 +163,7 @@ describe('Class', () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
-					body
+					document
 					:class="classStr"
 				/>
 			`,
@@ -120,7 +177,7 @@ describe('Class', () => {
 			},
 		});
 
-		const { classList } = global.window.document.body;
+		const { classList } = global.window.document.documentElement;
 
 		expect(classList.toString()).toBe('');
 
@@ -140,7 +197,7 @@ describe('Class', () => {
 			template: `
 				<div>
 					<pseudo-window
-						body
+						document
 						class="static-class"
 					/>
 					{{ counter }}
@@ -167,13 +224,13 @@ describe('Class', () => {
 	});
 
 	it('work with different existing class', async () => {
-		const { classList } = global.window.document.body;
+		const { classList } = global.window.document.documentElement;
 		classList.add('should-remain');
 
 		const wrapper = mount({
 			template: `
 				<pseudo-window
-					body
+					document
 					class="static-class"
 				/>
 			`,
@@ -190,7 +247,7 @@ describe('Class', () => {
 	});
 
 	it('work with colliding existing class', async () => {
-		const { classList } = global.window.document.body;
+		const { classList } = global.window.document.documentElement;
 		classList.add('should-remain');
 
 		expect(classList.contains('should-remain')).toBe(true);
@@ -198,7 +255,7 @@ describe('Class', () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
-					body
+					document
 					class="should-remain"
 				/>
 			`,

@@ -1,14 +1,21 @@
 import { stringifyClass } from './class';
 import { addClass, removeClass } from './class-util';
 
-const BODY = typeof window !== 'undefined' && window.document.body;
+const getTarget = ({ body, document }) => {
+	if (body) { return window.document.body; }
+	if (document) { return window.document.documentElement; }
+	return false;
+};
 
-export default ({ data, parent }) => {
+export default ({ props, data, parent }) => {
 	const classStr = stringifyClass([data.staticClass, data.class]);
 	if (!classStr) { return; }
 
-	const added = addClass(BODY, classStr);
-	const off = () => { removeClass(BODY, added); };
+	const target = getTarget(props);
+	if (!target) { return; }
+
+	const added = addClass(target, classStr);
+	const off = () => { removeClass(target, added); };
 	parent.$once('hook:beforeUpdate', off);
 	parent.$once('hook:destroyed', off);
 };
