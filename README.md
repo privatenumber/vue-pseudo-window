@@ -29,7 +29,7 @@ npm i vue-pseudo-window
 	<summary><strong>Adding listeners to <code>window</code></strong></summary>
 	<br>
 
-```vue
+```html
 <template>
 	<div>
 		<div>
@@ -71,7 +71,7 @@ export default {
 	<summary><strong>Adding class & listeners to <code>document &lt;html&gt;</code></strong></summary>
 	<br>
 
-```vue
+```html
 <template>
 	<div>
 		<pseudo-window
@@ -114,7 +114,7 @@ export default {
 	<summary><strong>Adding class & listeners to <code>body &lt;body&gt;</code></strong></summary>
 	<br>
 
-```vue
+```html
 <template>
 	<div>
 		<pseudo-window
@@ -158,7 +158,7 @@ export default {
 	<br>
 	
 The PseudoWindow is a functional component that returns exactly what's passed into it. By using it as the root component, its contents will pass-through.
-```vue
+```html
 <template>
 	<pseudo-window
 		@blur="pause"
