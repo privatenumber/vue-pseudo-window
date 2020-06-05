@@ -2,6 +2,12 @@ import { mount } from '@vue/test-utils';
 import PseudoWindow from 'vue-pseudo-window';
 
 describe('Modifiers', () => {
+	beforeEach(() => {
+		const div = document.createElement('div');
+		div.id = 'app';
+		global.window.document.body.append(div);
+	});
+
 	it('prevent', () => {
 		const preventedCapture = jest.fn();
 		const wrapper = mount({
@@ -21,9 +27,7 @@ describe('Modifiers', () => {
 					preventedCapture(e.defaultPrevented);
 				},
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.click();
 		expect(preventedCapture).toBeCalled();
@@ -35,6 +39,7 @@ describe('Modifiers', () => {
 	it('self', () => {
 		const buttonClickHandler = jest.fn();
 		const bodyClickHandler = jest.fn();
+
 		const wrapper = mount({
 			template: `
 				<div>
@@ -57,9 +62,7 @@ describe('Modifiers', () => {
 				buttonClickHandler,
 				bodyClickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.button.click();
 		expect(buttonClickHandler).toBeCalled();
@@ -92,9 +95,7 @@ describe('Modifiers', () => {
 				windowClickHandler,
 				bodyClickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.click();
 		expect(bodyClickHandler).toBeCalled();
@@ -119,9 +120,7 @@ describe('Modifiers', () => {
 			methods: {
 				clickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.click();
 		global.window.document.body.click();
@@ -148,9 +147,7 @@ describe('Modifiers', () => {
 					eventPhaseCapture(e.eventPhase);
 				},
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.click();
 		expect(eventPhaseCapture).toBeCalled();
@@ -182,9 +179,7 @@ describe('Modifiers', () => {
 					preventedCapture(e.defaultPrevented);
 				},
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.click();
 		expect(preventedCapture).toBeCalled();
