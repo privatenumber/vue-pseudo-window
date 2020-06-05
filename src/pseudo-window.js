@@ -3,10 +3,7 @@ import bindEventListeners from './bind-event-listeners';
 
 const init = (ctx) => {
 	bindEventListeners(ctx);
-
-	if (ctx.props.body) {
-		bindClass(ctx);
-	}
+	bindClass(ctx);
 };
 
 export default {
