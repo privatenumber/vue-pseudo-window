@@ -1,24 +1,30 @@
-# :framed_picture: Pseudo Window
-<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a>
-<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a>
-<a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a>
+<h1>
+	:framed_picture: Pseudo Window
+	<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a>
+	<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a>
+	<a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a>
+	<a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
+</h1>
 
-> A pseudo `window` component to declaratively bind event-listeners to `window` or `document` in your Vue template
+Bind handlers to the `<pseudo-window>` component to listen to events on `window`/`document`/`body`!
 
-## :raised_hand: Why?
-- **Noise reduction** No longer concern or pollute your component with `.addEventListener()` & `.removeEventListener()` code
-- **Declarative API** Use Vue's `@event` syntax to add event-listeners to the window as like you would to any other element
-- **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
-- **Tiny** Optimized for high compression and includes only the bare minimum
+## :raising_hand: Why?
+- :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
+- :recycle: **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
+- :muscle: **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
+- :hatched_chick: **Tiny** 855 B Gzipped!
 
-## :rocket: Installation
+## :rocket: Install
 ```sh
 npm i vue-pseudo-window
 ```
 
-## :beginner: Use case [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
+## :man_teacher: Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
-### Adding event listeners to `window`
+<details>
+	<summary><strong>Adding listeners to <code>window</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
@@ -27,7 +33,8 @@ npm i vue-pseudo-window
 		</div>
 
 		<pseudo-window
-			@resize.passive="onResize" <!-- Handle window resize with "passive" option -->
+			<!-- Handle window resize with "passive" option -->
+			@resize.passive="onResize"
 		/>
 	</div>
 </template>
@@ -54,14 +61,23 @@ export default {
 }
 </script>
 ```
+</details>
 
-### Adding event listeners to `document`
+<details>
+	<summary><strong>Adding class & listeners to <code>document &lt;html&gt;</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
 		<pseudo-window
 			document
-			@click="onClick" <!-- Handle document click -->
+
+			<!-- Add a class to <html> -->
+			:class="$style.lockScroll"
+
+			<!-- Handle document click -->
+			@click="onClick"
 		/>
 	</div>
 </template>
@@ -81,26 +97,26 @@ export default {
 	}
 }
 </script>
-```
 
-### Adding event listeners and classes to `<html>` or `<body>`
+<style module>
+.lockScroll {
+	overflow: hidden;
+}
+</style>
+```
+</details>
+
+<details>
+	<summary><strong>Adding class & listeners to <code>body &lt;body&gt;</code></strong></summary>
+	<br>
+
 ```vue
 <template>
 	<div>
 		<pseudo-window
-			document
-
-			<!-- Add a class to html -->
-			:class="$style.lockScroll"
-
-			<!-- Handle document click -->
-			@click="onClick"
-		/>
-
-		<pseudo-window
 			body
 
-			<!-- Add a class to body -->
+			<!-- Add a class to <body> -->
 			:class="$style.lockScroll"
 
 			<!-- Handle body click -->
@@ -131,8 +147,12 @@ export default {
 }
 </style>
 ```
+</details>
 
-### When you only want one root element
+<details>
+	<summary><strong>Only want one root element?</strong></summary>
+	<br>
+	
 The PseudoWindow is a functional component that returns exactly what's passed into it. By using it as the root component, its contents will pass-through.
 ```vue
 <template>
@@ -168,6 +188,13 @@ export default {
 }
 </script>
 ```
+</details>
 
-## Related
+
+
+
+
+## :family: Related
 - [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component
+- [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component for Vue.js
+- [vue-vnode-syringe](https://github.com/privatenumber/vue-vnode-syringe) - 🧬Mutate your vNodes with vNode Syringe 💉
