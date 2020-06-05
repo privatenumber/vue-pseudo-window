@@ -83,17 +83,27 @@ export default {
 </script>
 ```
 
-### Adding event listeners and classes to `document.body`
+### Adding event listeners and classes to `<html>` or `<body>`
 ```vue
 <template>
 	<div>
 		<pseudo-window
-			body
+			document
 
-			<!-- Add a class to document.body -->
+			<!-- Add a class to html -->
 			:class="$style.lockScroll"
 
-			<!-- Handle document.body click -->
+			<!-- Handle document click -->
+			@click="onClick"
+		/>
+
+		<pseudo-window
+			body
+
+			<!-- Add a class to body -->
+			:class="$style.lockScroll"
+
+			<!-- Handle body click -->
 			@click="onClick"
 		/>
 	</div>
