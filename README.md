@@ -64,7 +64,7 @@ export default {
 </details>
 
 <details>
-	<summary><strong>Adding listeners to <code>document</code></strong></summary>
+	<summary><strong>Adding class & listeners to <code>document &lt;html&gt;</code></strong></summary>
 	<br>
 
 ```vue
@@ -72,7 +72,10 @@ export default {
 	<div>
 		<pseudo-window
 			document
-			
+
+			<!-- Add a class to <html> -->
+			:class="$style.lockScroll"
+
 			<!-- Handle document click -->
 			@click="onClick"
 		/>
@@ -94,11 +97,17 @@ export default {
 	}
 }
 </script>
+
+<style module>
+.lockScroll {
+	overflow: hidden;
+}
+</style>
 ```
 </details>
 
 <details>
-	<summary><strong>Adding class & listeners to <code>body</code></strong></summary>
+	<summary><strong>Adding class & listeners to <code>body &lt;body&gt;</code></strong></summary>
 	<br>
 
 ```vue
@@ -107,10 +116,10 @@ export default {
 		<pseudo-window
 			body
 
-			<!-- Add a class to document.body -->
+			<!-- Add a class to <body> -->
 			:class="$style.lockScroll"
 
-			<!-- Handle document.body click -->
+			<!-- Handle body click -->
 			@click="onClick"
 		/>
 	</div>
