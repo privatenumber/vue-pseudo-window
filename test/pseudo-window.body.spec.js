@@ -4,6 +4,12 @@ import PseudoWindow from 'vue-pseudo-window';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('Events', () => {
+	beforeEach(() => {
+		const div = document.createElement('div');
+		div.id = 'app';
+		global.window.document.body.append(div);
+	});
+
 	it('should catch "click" on body', () => {
 		const clickHandler = jest.fn();
 		mount({
@@ -21,9 +27,7 @@ describe('Events', () => {
 			methods: {
 				clickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.body.dispatchEvent(new Event('click'));
 		expect(clickHandler).toHaveBeenCalled();
