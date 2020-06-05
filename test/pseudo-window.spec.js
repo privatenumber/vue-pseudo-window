@@ -43,6 +43,13 @@ describe('Slot', () => {
 });
 
 describe('Window', () => {
+	beforeEach(() => {
+		const div = document.createElement('div');
+		div.id = 'app';
+		global.window.document.body.append(div);
+	});
+
+
 	it('should catch "click" event', () => {
 		const clickHandler = jest.fn();
 		mount({
@@ -59,9 +66,7 @@ describe('Window', () => {
 			methods: {
 				clickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('click'));
 		expect(clickHandler).toBeCalled();
@@ -83,9 +88,7 @@ describe('Window', () => {
 			methods: {
 				resizeHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('resize'));
 		expect(resizeHandler).toBeCalled();
@@ -107,9 +110,7 @@ describe('Window', () => {
 			methods: {
 				resizeHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		wrapper.destroy();
 
@@ -139,9 +140,7 @@ describe('Window', () => {
 			methods: {
 				resizeHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('resize'));
 		expect(resizeHandler.mock.calls.length).toBe(1);
@@ -175,9 +174,7 @@ describe('Window', () => {
 			methods: {
 				resizeHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('resize'));
 		global.window.dispatchEvent(new Event('resize'));
