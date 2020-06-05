@@ -4,6 +4,12 @@ import PseudoWindow from 'vue-pseudo-window';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe('Document', () => {
+	beforeEach(() => {
+		const div = document.createElement('div');
+		div.id = 'app';
+		global.window.document.body.append(div);
+	});
+
 	it('should not catch "resize" on window', () => {
 		const resizeHandler = jest.fn();
 		mount({
@@ -21,9 +27,7 @@ describe('Document', () => {
 			methods: {
 				resizeHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('resize'));
 		expect(resizeHandler).not.toHaveBeenCalled();
@@ -46,9 +50,7 @@ describe('Document', () => {
 			methods: {
 				clickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.document.dispatchEvent(new Event('click'));
 		expect(clickHandler).toHaveBeenCalled();
@@ -76,9 +78,7 @@ describe('Document', () => {
 			methods: {
 				clickHandler,
 			},
-		}, {
-			attachToDocument: true,
-		});
+		}, { attachTo: '#app' });
 
 		global.window.dispatchEvent(new Event('click'));
 		expect(clickHandler).toHaveBeenCalled();
