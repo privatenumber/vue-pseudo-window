@@ -1,12 +1,16 @@
-<h1>
-	:framed_picture: Pseudo Window
-	<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a>
-	<a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a>
-	<a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a>
-	<a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
-</h1>
+# :framed_picture: Pseudo Window <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a> <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a> <a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a> <a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
 
-Bind handlers to the `<pseudo-window>` component to listen to events on `window`/`document`/`body`!
+Bind event-handlers or add classes to `<pseudo-window>` to target `window`/`document`/`body`!
+
+#### Window event-listener
+```html
+<pseudo-window @resize.passive="onResize" />
+```
+
+#### Body class
+```html
+<pseudo-window body class="hide-overflow" />
+```
 
 ## :raising_hand: Why?
 - :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
