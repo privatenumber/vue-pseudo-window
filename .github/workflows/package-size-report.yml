@@ -15,7 +15,7 @@ jobs:
 
       - name: Package size report
         id: pkg-size-report
-        uses: pkg-size/reporter@develop
+        uses: pkg-size/action@develop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
