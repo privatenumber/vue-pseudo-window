@@ -1,7 +1,9 @@
 import { mount } from '@vue/test-utils';
 import PseudoWindow from 'vue-pseudo-window';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = ms => new Promise((resolve) => {
+	setTimeout(resolve, ms);
+});
 
 describe('Events', () => {
 	beforeEach(() => {
