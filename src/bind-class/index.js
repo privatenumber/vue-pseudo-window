@@ -23,7 +23,9 @@ export default ({ props, data, parent }) => {
 	}
 
 	const added = addClass(target, classesString);
-	const off = () => { removeClass(target, added); };
+	const off = () => {
+		removeClass(target, added);
+	};
 	parent.$once('hook:beforeUpdate', off);
 	parent.$once('hook:destroyed', off);
 };
