@@ -49,7 +49,6 @@ describe('Window', () => {
 		global.window.document.body.append(div);
 	});
 
-
 	it('should catch "click" event', () => {
 		const clickHandler = jest.fn();
 		mount({
