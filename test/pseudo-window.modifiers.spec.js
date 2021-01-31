@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PseudoWindow from 'vue-pseudo-window';
+import PseudoWindow from '../dist/pseudo-window.esm.js';
 
 describe('Modifiers', () => {
 	beforeEach(() => {
@@ -23,8 +23,8 @@ describe('Modifiers', () => {
 				PseudoWindow,
 			},
 			methods: {
-				bodyClickHandler(e) {
-					preventedCapture(e.defaultPrevented);
+				bodyClickHandler(event) {
+					preventedCapture(event.defaultPrevented);
 				},
 			},
 		}, { attachTo: '#app' });
@@ -142,9 +142,9 @@ describe('Modifiers', () => {
 				PseudoWindow,
 			},
 			methods: {
-				windowClickHandler(e) {
+				windowClickHandler(event) {
 					// Pass in the primitive so it doesn't check at assertion
-					eventPhaseCapture(e.eventPhase);
+					eventPhaseCapture(event.eventPhase);
 				},
 			},
 		}, { attachTo: '#app' });
@@ -172,11 +172,11 @@ describe('Modifiers', () => {
 				PseudoWindow,
 			},
 			methods: {
-				clickHandler(e) {
-					e.preventDefault();
+				clickHandler(event) {
+					event.preventDefault();
 
 					// Pass in the primitive so it doesn't check at assertion
-					preventedCapture(e.defaultPrevented);
+					preventedCapture(event.defaultPrevented);
 				},
 			},
 		}, { attachTo: '#app' });
