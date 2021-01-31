@@ -4,7 +4,7 @@
 
 import Vue from 'vue';
 import { render } from '@vue/server-test-utils';
-import PseudoWindow from 'vue-pseudo-window';
+import PseudoWindow from '../dist/pseudo-window.esm.js';
 
 describe('SSR', () => {
 	it('declare', async () => {

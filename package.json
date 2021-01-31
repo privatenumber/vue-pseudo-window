@@ -30,6 +30,7 @@
     "build": "rollup -c --environment NODE_ENV:production",
     "dev-build": "rollup -cw",
     "dev": "jest --watchAll",
+    "pretest": "npm run build",
     "test": "jest",
     "lint": "eslint .",
     "version": "npm run build && git add dist"

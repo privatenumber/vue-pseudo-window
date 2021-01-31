@@ -22,7 +22,7 @@ function removeClass(element, classes) {
 	}
 
 	let _class;
-	while (_class = classes.shift()) {
+	while (_class = classes.shift()) { // eslint-disable-line no-cond-assign
 		element.classList.remove(_class);
 	}
 

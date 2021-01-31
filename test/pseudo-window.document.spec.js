@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PseudoWindow from 'vue-pseudo-window';
+import PseudoWindow from '../dist/pseudo-window.esm.js';
 
 const sleep = ms => new Promise((resolve) => {
 	setTimeout(resolve, ms);
