@@ -1,9 +1,9 @@
-import bindClass from './bind-class/index';
-import bindEventListeners from './bind-event-listeners';
+import bindClass from './bind-class/index.js';
+import bindEventListeners from './bind-event-listeners.js';
 
-const init = (ctx) => {
-	bindEventListeners(ctx);
-	bindClass(ctx);
+const init = (context) => {
+	bindEventListeners(context);
+	bindClass(context);
 };
 
 export default {
@@ -16,15 +16,15 @@ export default {
 		body: Boolean,
 	},
 
-	render(h, ctx) {
-		if (ctx.parent._isMounted) { // eslint-disable-line no-underscore-dangle
-			init(ctx);
+	render(h, context) {
+		if (context.parent._isMounted) {
+			init(context);
 		} else {
-			ctx.parent.$once('hook:mounted', () => {
-				init(ctx);
+			context.parent.$once('hook:mounted', () => {
+				init(context);
 			});
 		}
 
-		return ctx.slots().default;
+		return context.slots().default;
 	},
 };

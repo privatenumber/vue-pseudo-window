@@ -1,5 +1,4 @@
 // From https://github.com/vuejs/vue/blob/265dd457789bf726f95dd0578c1ce65a8b6ae9fd/src/platforms/web/runtime/class-util.js
-/* eslint-disable */
 
 export function addClass(el, classes) {
 	if (!classes.length) {
@@ -29,4 +28,4 @@ export function removeClass(el, classes) {
 	if (!el.classList.length) {
 		el.removeAttribute('class');
 	}
-};
+}
