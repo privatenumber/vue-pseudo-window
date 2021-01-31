@@ -7,9 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 export default {
 	input: 'src/pseudo-window.js',
 	plugins: [
-		babel({
-			exclude: 'src/bind-class/class*.js',
-		}),
+		babel(),
 		isProduction && terser({
 			mangle: {
 				properties: {
