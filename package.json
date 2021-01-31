@@ -25,7 +25,7 @@
   "files": [
     "dist"
   ],
-  "main": "dist/pseudo-window.js",
+  "main": "dist/pseudo-window.esm.js",
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
     "dev-build": "rollup -cw",

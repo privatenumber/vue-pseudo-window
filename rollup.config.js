@@ -19,9 +19,15 @@ export default {
 		}),
 		isProd && filesize(),
 	],
-	output: {
-		dir: 'dist',
-		format: 'umd',
-		name: 'PseudoWindow',
-	},
+	output: [
+		{
+			file: 'dist/pseudo-window.umd.js',
+			format: 'umd',
+			name: 'PseudoWindow',
+		},
+		{
+			file: 'dist/pseudo-window.esm.js',
+			format: 'esm',
+		},
+	],
 };
