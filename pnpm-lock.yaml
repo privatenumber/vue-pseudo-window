@@ -12,7 +12,7 @@ devDependencies:
   jest: 26.6.3
   rollup: 2.38.1
   rollup-plugin-filesize: 9.1.0
-  rollup-plugin-terser: 6.1.0_rollup@2.38.1
+  rollup-plugin-terser: 7.0.2_rollup@2.38.1
   vue: 2.6.12
   vue-jest: 3.0.7_ae554d8947d7e926b014dda25865f517
   vue-server-renderer: 2.6.12
@@ -5867,18 +5867,18 @@ packages:
       node: '>=10.0.0'
     resolution:
       integrity: sha512-3umx+e2AzYH4lJaBtyeWk2kC7JafzZhy5AJwj2amudWWgqIFpI/QH7s2+9LWBwIvjK5ty6K6eM3i6dw7qF4GrQ==
-  /rollup-plugin-terser/6.1.0_rollup@2.38.1:
+  /rollup-plugin-terser/7.0.2_rollup@2.38.1:
     dependencies:
       '@babel/code-frame': 7.12.11
       jest-worker: 26.6.2
       rollup: 2.38.1
-      serialize-javascript: 3.1.0
-      terser: 4.8.0
+      serialize-javascript: 4.0.0
+      terser: 5.5.1
     dev: true
     peerDependencies:
       rollup: ^2.0.0
     resolution:
-      integrity: sha512-4fB3M9nuoWxrwm39habpd4hvrbrde2W2GG4zEGPQg1YITNkM3Tqur5jSuXlWNzbv/2aMLJ+dZJaySc3GCD8oDw==
+      integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==
   /rollup/2.38.1:
     dev: true
     engines:
@@ -5977,6 +5977,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
+  /serialize-javascript/4.0.0:
+    dependencies:
+      randombytes: 2.1.0
+    dev: true
+    resolution:
+      integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
   /set-blocking/2.0.0:
     dev: true
     resolution:
@@ -6433,17 +6439,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-un0FmiRUQNr5PJqy9kP7c40F5BOfpGlYTrxonDChEZB7pzZxRNp/bt+ymiy9/npwXya9KH99nJ/GXFIiUkYGFQ==
-  /terser/4.8.0:
-    dependencies:
-      commander: 2.20.3
-      source-map: 0.6.1
-      source-map-support: 0.5.19
-    dev: true
-    engines:
-      node: '>=6.0.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-EAPipTNeWsb/3wLPeup1tVPaXfIaU68xMnVdPafIL1TV05OhASArYyIfFvnvJCNrR2NIOvDVNNTFRa+Re2MWyw==
   /terser/5.5.1:
     dependencies:
       commander: 2.20.3
@@ -6997,21 +6992,21 @@ packages:
     resolution:
       integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 specifiers:
-  '@babel/core': ^7.10.2
-  '@babel/preset-env': ^7.10.2
+  '@babel/core': ^7.12.10
+  '@babel/preset-env': ^7.12.11
   '@rollup/plugin-babel': ^5.2.3
-  '@vue/server-test-utils': ^1.0.3
-  '@vue/test-utils': ^1.0.3
-  babel-jest: ^26.0.1
-  eslint: ^7.1.0
-  eslint-config-airbnb-base: ^14.1.0
-  eslint-plugin-import: ^2.20.2
-  husky: ^4.2.5
-  jest: ^26.0.1
-  rollup: ^2.13.1
-  rollup-plugin-filesize: ^9.0.0
-  rollup-plugin-terser: ^6.1.0
-  vue: ^2.6.10
-  vue-jest: ^3.0.4
-  vue-server-renderer: ^2.6.11
-  vue-template-compiler: ^2.6.11
+  '@vue/server-test-utils': ^1.1.2
+  '@vue/test-utils': ^1.1.2
+  babel-jest: ^26.6.3
+  eslint: ^7.18.0
+  eslint-config-airbnb-base: ^14.2.1
+  eslint-plugin-import: ^2.22.1
+  husky: ^4.3.8
+  jest: ^26.6.3
+  rollup: ^2.38.1
+  rollup-plugin-filesize: ^9.1.0
+  rollup-plugin-terser: ^7.0.2
+  vue: ^2.6.12
+  vue-jest: ^3.0.7
+  vue-server-renderer: ^2.6.12
+  vue-template-compiler: ^2.6.12
