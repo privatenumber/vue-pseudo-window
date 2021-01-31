@@ -2,6 +2,11 @@
 
 Vue component to bind event-handlers or classes to `window`/`document`/`body`!
 
+Insert pseudo-window anywhere in your template:
+```html
+<pseudo-window @resize.passive="handleResize" />
+```
+
 ## 🚀 Install
 ```sh
 npm i vue-pseudo-window
