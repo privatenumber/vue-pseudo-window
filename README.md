@@ -16,7 +16,7 @@ npm i vue-pseudo-window
 - :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
 - :recycle: **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
 - :muscle: **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
-- :hatched_chick: **Tiny** 855 B Gzipped!
+- :hatched_chick: **Tiny** 819 B Gzipped!
 
 ### Before
 ```html
