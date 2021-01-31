@@ -8,13 +8,7 @@ export default {
 	input: 'src/pseudo-window.js',
 	plugins: [
 		babel(),
-		isProduction && terser({
-			mangle: {
-				properties: {
-					regex: /^M_/,
-				},
-			},
-		}),
+		isProduction && terser(),
 		isProduction && filesize(),
 	],
 	output: [
