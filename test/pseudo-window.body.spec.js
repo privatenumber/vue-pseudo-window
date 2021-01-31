@@ -37,7 +37,7 @@ describe('Events', () => {
 });
 
 describe('Class', () => {
-	it('invalid', async () => {
+	it('invalid', () => {
 		mount({
 			template: `
 				<pseudo-window
@@ -53,7 +53,7 @@ describe('Class', () => {
 		expect(classList.contains('static-class')).toBe(false);
 	});
 
-	it('static class', async () => {
+	it('static class', () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
@@ -74,7 +74,7 @@ describe('Class', () => {
 		expect(classList.contains('static-class')).toBe(false);
 	});
 
-	it('should add / remove class', async () => {
+	it('should add / remove class', () => {
 		const wrapper = mount({
 			template: `
 				<pseudo-window
@@ -195,7 +195,7 @@ describe('Class', () => {
 		expect(classList.contains('should-remain')).toBe(true);
 	});
 
-	it('work with colliding existing class', async () => {
+	it('work with colliding existing class', () => {
 		const { classList } = global.window.document.body;
 		classList.add('should-remain');
 
