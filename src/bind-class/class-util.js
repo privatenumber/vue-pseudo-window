@@ -1,32 +1,37 @@
 // From https://github.com/vuejs/vue/blob/265dd457789bf726f95dd0578c1ce65a8b6ae9fd/src/platforms/web/runtime/class-util.js
-/* eslint-disable */
 
-export function addClass(el, classes) {
-	if (!classes.length) {
+function addClass(element, classes) {
+	if (classes.length === 0) {
 		return;
 	}
 
-	const { classList } = el;
+	const { classList } = element;
 
-	return classes.filter((c) => {
-		if (!classList.contains(c)) {
-			classList.add(c);
+	return classes.filter((_class) => {
+		if (!classList.contains(_class)) {
+			classList.add(_class);
 			return true;
 		}
+		return false;
 	});
 }
 
-export function removeClass(el, classes) {
-	if (!classes || !classes.length) {
+function removeClass(element, classes) {
+	if (!classes || classes.length === 0) {
 		return;
 	}
 
-	let c;
-	while (c = classes.shift()) {
-		el.classList.remove(c);
+	let _class;
+	while (_class = classes.shift()) { // eslint-disable-line no-cond-assign
+		element.classList.remove(_class);
 	}
 
-	if (!el.classList.length) {
-		el.removeAttribute('class');
+	if (element.classList.length === 0) {
+		element.removeAttribute('class');
 	}
+}
+
+export {
+	addClass,
+	removeClass,
 };

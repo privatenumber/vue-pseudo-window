@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import PseudoWindow from 'vue-pseudo-window';
+import PseudoWindow from '../dist/pseudo-window.esm.js';
 
 describe('Slot', () => {
 	it('pass through nothing', () => {
@@ -48,7 +48,6 @@ describe('Window', () => {
 		div.id = 'app';
 		global.window.document.body.append(div);
 	});
-
 
 	it('should catch "click" event', () => {
 		const clickHandler = jest.fn();

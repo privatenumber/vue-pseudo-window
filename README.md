@@ -1,29 +1,78 @@
-# :framed_picture: Pseudo Window <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a> <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a> <a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a> <a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
+# 🖼 Pseudo Window <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/v/vue-pseudo-window"></a> <a href="https://npm.im/vue-pseudo-window"><img src="https://badgen.net/npm/dm/vue-pseudo-window"></a> <a href="https://packagephobia.now.sh/result?p=vue-pseudo-window"><img src="https://packagephobia.now.sh/badge?p=vue-pseudo-window"></a> <a href="https://bundlephobia.com/result?p=vue-pseudo-window"><img src="https://badgen.net/bundlephobia/minzip/vue-pseudo-window"></a>
 
-Bind event-handlers or add classes to `<pseudo-window>` to target `window`/`document`/`body`!
+Vue component to bind event-handlers or classes to `window`/`document`/`body`!
 
-#### Window event-listener
+Insert pseudo-window anywhere in your template:
 ```html
-<pseudo-window @resize.passive="onResize" />
+<pseudo-window @resize.passive="handleResize" />
 ```
 
-#### Body class
-```html
-<pseudo-window body class="hide-overflow" />
-```
+👉 Try out a [demo in this CodePen](https://codepen.io/privatenumber/pen/qBqEOGa)!
 
-## :raising_hand: Why?
-- :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
-- :recycle: **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
-- :muscle: **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
-- :hatched_chick: **Tiny** 855 B Gzipped!
-
-## :rocket: Install
+## 🚀 Install
 ```sh
 npm i vue-pseudo-window
 ```
+## 🙋‍♂️ Why?
 
-## :man_teacher: Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
+- ✨ **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
+- ♻️ **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
+- 💪 **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
+- 🐥 **Tiny** 819 B Gzipped!
+
+### Before
+```html
+<template>
+  ...
+</template>
+
+<script>
+export default {
+
+	// Your component would be polluted with event binding logic
+	mounted() {
+		window.addEventListener('resize', this.handleResize, { passive: true })
+	},
+
+	beforeDestroy() {
+		window.removeEventListener('resize', this.handleResize)
+	},
+
+	methods: {
+		handleResize() {
+			...
+		}
+	}
+}
+</script>
+```
+
+### After <sup>✨</sup>
+
+```html
+<template>
+	<div>
+		...
+
+		<!-- Insert pseudo-window anywhere in your template -->
+		<pseudo-window @resize.passive="handleResize" />
+	</div>
+</template>
+
+<script>
+export default {
+
+	// Much cleaner!
+	methods: {
+		handleResize() {
+			...
+		}
+	}
+}
+</script>
+```
+
+## 👨‍🏫 Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
 <details>
 	<summary><strong>Adding listeners to <code>window</code></strong></summary>
@@ -157,7 +206,8 @@ export default {
 	<summary><strong>Only want one root element?</strong></summary>
 	<br>
 	
-The PseudoWindow is a functional component that returns exactly what's passed into it. By using it as the root component, its contents will pass-through.
+PseudoWindow is a functional component that returns exactly what's passed into it. By using it as the root component, its contents will pass-through.
+
 ```html
 <template>
 	<pseudo-window
@@ -194,11 +244,7 @@ export default {
 ```
 </details>
 
-
-
-
-
-## :family: Related
+## 👨‍👩‍👧‍👦 Related
 - [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component
 - [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component for Vue.js
 - [vue-vnode-syringe](https://github.com/privatenumber/vue-vnode-syringe) - 🧬Mutate your vNodes with vNode Syringe 💉
