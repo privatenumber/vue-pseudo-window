@@ -7,6 +7,8 @@ Insert pseudo-window anywhere in your template:
 <pseudo-window @resize.passive="handleResize" />
 ```
 
+👉 Try out a [demo in this CodePen](https://codepen.io/privatenumber/pen/qBqEOGa)!
+
 ## 🚀 Install
 ```sh
 npm i vue-pseudo-window
