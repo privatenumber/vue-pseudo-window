@@ -13,10 +13,10 @@ npm i vue-pseudo-window
 ```
 ## 🙋‍♂️ Why?
 
-- :sparkles: **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
-- :recycle: **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
-- :muscle: **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
-- :hatched_chick: **Tiny** 819 B Gzipped!
+- ✨ **Cleaner code** No longer pollute your component with `.addEventListener()` & `.removeEventListener()`
+- ♻️ **Template API** Use Vue's `@event` syntax to bind listeners to the window as like you would to any other element
+- 💪 **Robust** Supports all event modifiers `capture`, `passive`, and `once`. SSR friendly.
+- 🐥 **Tiny** 819 B Gzipped!
 
 ### Before
 ```html
@@ -70,7 +70,7 @@ export default {
 </script>
 ```
 
-## :man_teacher: Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
+## 👨‍🏫 Demos [![JSFiddle Demo](https://flat.badgen.net/badge/JSFiddle/Open%20Demo/blue)](https://jsfiddle.net/hirokiosame/p5Lz419s/)
 
 <details>
 	<summary><strong>Adding listeners to <code>window</code></strong></summary>
@@ -242,7 +242,7 @@ export default {
 ```
 </details>
 
-## :family: Related
+## 👨‍👩‍👧‍👦 Related
 - [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component
 - [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component for Vue.js
 - [vue-vnode-syringe](https://github.com/privatenumber/vue-vnode-syringe) - 🧬Mutate your vNodes with vNode Syringe 💉
