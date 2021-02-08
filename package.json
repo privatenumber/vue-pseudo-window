@@ -29,8 +29,7 @@
 		"dev": "jest --watchAll",
 		"pretest": "npm run build",
 		"test": "jest",
-		"lint": "eslint .",
-		"version": "npm run build && git add dist"
+		"lint": "eslint ."
 	},
 	"husky": {
 		"hooks": {
