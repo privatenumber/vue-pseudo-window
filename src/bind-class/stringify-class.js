@@ -2,7 +2,7 @@
 
 const isObject = object => object !== null && typeof object === 'object';
 
-// eslint-disable-next-line unicorn/no-reduce
+// eslint-disable-next-line unicorn/no-array-reduce
 const flatMap = (array, callback) => array.reduce(
 	(accumulator, element) => accumulator.concat(callback(element)),
 	[],
